@@ -1,6 +1,6 @@
 # lessnow
 
-__Less Now__ is a LESS CSS compiler written in Java. It is a fork of [L&eacute;-css](https://github.com/lukasdietrich/Le-css). The license is CC BY.
+_Less Now_ is a LESS CSS compiler written in Java. It is a fork of [L&eacute;-css](https://github.com/lukasdietrich/Le-css). The license is CC BY.
 
 It uses the following libraries:
 
@@ -12,7 +12,7 @@ It uses the following libraries:
 * [filedrop](http://iharder.sourceforge.net/current/java/filedrop/)
 * [json-simple: Json parser for Java 1.1.1](http://code.google.com/p/json-simple/)
 
-> [Project page](http://creapage.net/opensource/2012-lessnow/)
+> __[The _Less Now_ project page](http://creapage.net/opensource/2012-lessnow/)__.
 
 ## Getting started
 
@@ -44,6 +44,6 @@ It uses the following libraries:
 		}
 	}
 
-### Start __Less Now__
+### Start _Less Now_
 
 	java -jar lessnow-N.jar -conf lessnow-config.json
