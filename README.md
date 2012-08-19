@@ -1,7 +1,7 @@
 lessnow
 =======
 
-Less Now is a LESS CSS compiler written in Java. It is a fork from [L&eacute;-css](https://github.com/lukasdietrich/Le-css).
+Less Now is a LESS CSS compiler written in Java. It is a fork of [L&eacute;-css](https://github.com/lukasdietrich/Le-css). The license is CC BY.
 
 It uses the following libraries:
 
