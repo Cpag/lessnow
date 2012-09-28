@@ -54,6 +54,10 @@ public class LessFileStatus {
 		this.status = s;
 		if (s != ERROR)
 			errorMessage = null;
+		if (overviewItem != null) {
+			overviewItem.refreshStatus();
+			overviewItem.repaint();
+		}
 	}
 
 	public void setErrorStatus(String error) {

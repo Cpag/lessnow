@@ -8,10 +8,10 @@ public class ProjectConf {
 	// -- Fields
 	// --
 
-	private String name, charset = "UTF-8", showUpdatedFiles = "always";
-	private boolean minify = true, recursive = false;
+	private String name, charset = "UTF-8", showUpdatedFiles = "always", autoAddDirRegexp;
+	private boolean minify = true, recursive = false, autoAddDirAsProjects = false;
 	private int scanDelayDirS = 10, scanDelayFilesS = 3;
-	private int showUpdatedFilesDays = -1;
+	private int showUpdatedFilesDays = -1, autoAddDirNameCount = 2;
 
 	// --
 	// -- Initialization
@@ -30,6 +30,9 @@ public class ProjectConf {
 			setScanDelayDirS(defConf.getScanDelayDirS());
 			setScanDelayFilesS(defConf.getScanDelayFilesS());
 			setShowUpdatedFiles(defConf.getShowUpdatedFiles());
+			setAutoAddDirAsProjects(defConf.isAutoAddDirAsProjects());
+			setAutoAddDirRegexp(defConf.getAutoAddDirRegexp());
+			setAutoAddDirNameCount(defConf.getAutoAddDirNameCount());
 		}
 	}
 
@@ -78,6 +81,21 @@ public class ProjectConf {
 		this.showUpdatedFiles = showUpdatedFiles;
 	}
 
+	public void setAutoAddDirAsProjects(Boolean b) {
+		if (b != null)
+			this.autoAddDirAsProjects = b;
+	}
+
+	public void setAutoAddDirRegexp(String s) {
+		if (s != null)
+			this.autoAddDirRegexp = s;
+	}
+
+	public void setAutoAddDirNameCount(Integer i) {
+		if (i != null)
+			this.autoAddDirNameCount = i;
+	}
+
 	// --
 	// -- Public
 	// --
@@ -113,5 +131,17 @@ public class ProjectConf {
 	/** @return -1 means "always" */
 	public int getShowUpdatedFilesDays() {
 		return showUpdatedFilesDays;
+	}
+
+	public String getAutoAddDirRegexp() {
+		return autoAddDirRegexp;
+	}
+
+	public boolean isAutoAddDirAsProjects() {
+		return autoAddDirAsProjects;
+	}
+
+	public int getAutoAddDirNameCount() {
+		return autoAddDirNameCount;
 	}
 }

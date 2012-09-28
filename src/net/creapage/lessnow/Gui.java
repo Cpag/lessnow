@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.io.File;
 import java.security.InvalidParameterException;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -97,15 +98,10 @@ public class Gui extends JFrame {
 	}
 
 	public void addLessProject(File dir, ProjectConf conf) {
-		new DirProject(dir, conf, overview, compilProc);
-		setWithOverview(!overview.isEmpty());
-//		cl.show(pane, "OverviewPane");
-//		new Thread() {
-//			public void run() {
-//				if (overview.isEmpty())
-//					cl.show(pane, "DropPane");
-//			}
-//		}.start();
+		if (conf.isAutoAddDirAsProjects())
+			autoAddDirAsProjects(dir, conf);
+		else
+			addDirProject(dir, conf);
 	}
 
 	public void setWithOverview(boolean b) {
@@ -113,5 +109,50 @@ public class Gui extends JFrame {
 			cl.show(pane, "OverviewPane");
 		else
 			cl.show(pane, "DropPane");
+	}
+
+	private void addDirProject(File dir, ProjectConf conf) {
+		System.out.println("Watch the project: " + conf.getName());
+		new DirProject(dir, conf, overview, compilProc);
+		setWithOverview(!overview.isEmpty());
+	}
+
+	private void autoAddDirAsProjects(File dir, ProjectConf conf) {
+		recursiveAddDirAsProject(dir, conf, 0);
+	}
+
+	private void recursiveAddDirAsProject(File dir, ProjectConf conf, int deepLevel) {
+		if (!dir.isDirectory())
+			throw new BugError("Auto-add project should be a directory: " + dir);
+		File[] subf = dir.listFiles();
+		if (subf != null) {
+			boolean hasLessFiles = false;
+			for (File current : subf) {
+				if (current.isDirectory())
+					recursiveAddDirAsProject(current, conf, deepLevel + 1);
+				if (current.isFile() && current.getName().endsWith(".less"))
+					hasLessFiles = true;
+			}
+			if (hasLessFiles) {
+				String regex = conf.getAutoAddDirRegexp();
+				if (regex == null || Pattern.matches(regex, dir.getPath() + '/')) {
+					String autoName = makeProjectName(conf.getName(), deepLevel, dir, conf.getAutoAddDirNameCount());
+					ProjectConf autoConf = new ProjectConf(autoName, conf);
+					addDirProject(dir, autoConf);
+				}
+			}
+		}
+	}
+
+	private static String makeProjectName(String baseProjectName, int currentDeepLevel, File dir, int dirCount) {
+		StringBuilder sb = new StringBuilder(baseProjectName);
+		while (dirCount > 0 && currentDeepLevel > 0) {
+			sb.append('/');
+			sb.append(dir.getName());
+			dir = dir.getParentFile();
+			--currentDeepLevel;
+			--dirCount;
+		}
+		return sb.toString();
 	}
 }

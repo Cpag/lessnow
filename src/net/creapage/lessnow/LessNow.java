@@ -64,6 +64,9 @@ public class LessNow {
 		} catch (BadConfig e) {
 			System.err.println("Bad configuration: " + e.getMessage());
 			System.exit(1);
+		} catch (InvalidParameterException e) {
+			System.err.println("Bad configuration: " + e.getMessage());
+			System.exit(1);
 		}
 	}
 
@@ -93,6 +96,9 @@ public class LessNow {
 		conf.setScanDelayDirS(toInteger("project-defaults/scan-delay-dir-s", def.get("scan-delay-dir-s"), false));
 		conf.setScanDelayFilesS(toInteger("project-defaults/scan-delay-files-s", def.get("scan-delay-files-s"), false));
 		conf.setShowUpdatedFiles(toString("project-defaults/show-updated-files", def.get("show-updated-files"), false));
+		conf.setAutoAddDirAsProjects(toBoolean("project-defaults/auto-add-dir-as-projects", def.get("auto-add-dir-as-projects"), false));
+		conf.setAutoAddDirRegexp(toString("project-defaults/auto-add-dir-regexp", def.get("auto-add-dir-regexp"), false));
+		conf.setAutoAddDirNameCount(toInteger("project-defaults/auto-add-dir-name-count", def.get("auto-add-dir-name-count"), false));
 		return conf;
 	}
 
@@ -115,6 +121,9 @@ public class LessNow {
 			conf.setScanDelayDirS(toInteger(name + "/scan-delay-dir-s", p.get("scan-delay-dir-s"), false));
 			conf.setScanDelayFilesS(toInteger(name + "/scan-delay-files-s", p.get("scan-delay-files-s"), false));
 			conf.setShowUpdatedFiles(toString(name + "/show-updated-files", p.get("show-updated-files"), false));
+			conf.setAutoAddDirAsProjects(toBoolean(name + "/auto-add-dir-as-projects", p.get("auto-add-dir-as-projects"), false));
+			conf.setAutoAddDirRegexp(toString(name + "/auto-add-dir-regexp", p.get("auto-add-dir-regexp"), false));
+			conf.setAutoAddDirNameCount(toInteger(name + "/auto-add-dir-name-count", p.get("auto-add-dir-name-count"), false));
 			gui.addLessProject(fPath, conf);
 		}
 	}
@@ -126,7 +135,7 @@ public class LessNow {
 			return null;
 		}
 		if (!(o instanceof Number))
-			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" o should be an integer");
+			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" should be an integer");
 		return ((Number) o).intValue();
 	}
 
@@ -137,7 +146,7 @@ public class LessNow {
 			return null;
 		}
 		if (!(o instanceof Boolean))
-			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" o should be a boolean");
+			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" should be a boolean");
 		return (Boolean) o;
 	}
 
@@ -148,7 +157,7 @@ public class LessNow {
 			return null;
 		}
 		if (!(o instanceof String))
-			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" o should be a string");
+			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" should be a string");
 		return (String) o;
 	}
 
@@ -159,7 +168,7 @@ public class LessNow {
 			return null;
 		}
 		if (!(o instanceof JSONObject))
-			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" o should be an object");
+			throw new BadConfig("In parameter \"" + paramName + "\", value \"" + o + "\" should be an object");
 		return (JSONObject) o;
 	}
 
