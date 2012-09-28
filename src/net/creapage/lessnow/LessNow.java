@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
 
 public class LessNow {
 
-	public final static String VERSION = "0.3";
+	public final static String VERSION = "0.4";
 
 	public static void main(String[] args) {
 		try {
