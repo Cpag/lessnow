@@ -21,7 +21,7 @@ It uses the following libraries:
 	{
 		"gui-config": {
 			"height": 700,
-			"width": 350,
+			"width": 500,
 			"location-x": "left",
 			"location-y": "bottom"
 		},

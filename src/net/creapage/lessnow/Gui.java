@@ -145,14 +145,13 @@ public class Gui extends JFrame {
 	}
 
 	private static String makeProjectName(String baseProjectName, int currentDeepLevel, File dir, int dirCount) {
-		StringBuilder sb = new StringBuilder(baseProjectName);
+		String s = "";
 		while (dirCount > 0 && currentDeepLevel > 0) {
-			sb.append('/');
-			sb.append(dir.getName());
+			s = '/' + dir.getName() + s;
 			dir = dir.getParentFile();
 			--currentDeepLevel;
 			--dirCount;
 		}
-		return sb.toString();
+		return baseProjectName + s;
 	}
 }
