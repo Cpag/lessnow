@@ -31,7 +31,10 @@ It uses the following libraries:
 			"recursive": false,
 			"scan-delay-dir-s": 10,
 			"scan-delay-files-s": 3,
-			"show-updated-files": "0d"
+			"show-updated-files": "1d",
+			"auto-add-dir-as-projects": false,
+			"auto-add-dir-regexp": ".*mydir.*",
+			"auto-add-dir-name-count": 2
 		},
 		"projects": {
 			"p1": {
